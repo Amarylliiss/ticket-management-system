@@ -1,0 +1,26 @@
+<?php
+
+namespace App\Http\Resources;
+
+use App\Infrastructure\Persistence\Eloquent\Models\CategoryModel;
+use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\JsonResource;
+
+/** @mixin CategoryModel */
+class CategoryResource extends JsonResource
+{
+    /**
+     * @return array<string, mixed>
+     */
+    public function toArray(Request $request): array
+    {
+        return [
+            'id' => $this->id,
+            'name' => $this->name,
+            'slug' => $this->slug,
+            'description' => $this->description,
+            'is_active' => $this->is_active,
+            'tickets_count' => $this->whenCounted('tickets'),
+        ];
+    }
+}
